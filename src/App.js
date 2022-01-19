@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import PersonalData from "./components/PersonalData";
+import { useState } from "react";
+import PersonalItems from "./components/PersonalItems";
+
+const INITIAL_DATA = [
+  {
+    title: "ali",
+    salary: "345345",
+    date: new Date('01.06.2020'),
+  }
+];
 
 function App() {
+
+  const [data, setData] = useState(INITIAL_DATA);
+
+  const addPersonalData = (personalData) => {
+    setData((prevData) => {
+      return [personalData, ...prevData];
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PersonalData onAddPersonalData={addPersonalData} />
+      <PersonalItems data={data} />
     </div>
   );
 }
